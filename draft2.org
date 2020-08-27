@@ -86,6 +86,8 @@
      6 hours compared to 20 mins in the first AFL run.
    - Apart from 2 unique bugs, all other bugs found in this run were fixed
      and were patched in the SOF repository.
+   - A sample bug report for a crash found while fuzzing can be found here:
+     [[https://github.com/thesofproject/sof/issues/3304][https://github.com/thesofproject/sof/issues/3304]]
    
 
 * Links:
