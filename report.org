@@ -27,7 +27,7 @@
     sof-fuzzing tool.
   - Then the work went on to use the inputs generate from AFL fuzzer and
     send them to SOF QEMU.
-    
+
     - The first subtask in this case is establishing the connection
       between AFL and SOF QEMU.
     - AFL works by taking a program executable (along with its arguments) as
@@ -67,12 +67,13 @@
     - Some observations:
 
       - AFL became very fast.
-      - AFL was able to find 100 crahes/testcases all within running
-	the fuzzer for less than 20 minutes.
+      - AFL was able to find 100 crahes/testcases all within
+        running the fuzzer for less than 20 minutes.
 
-	This shows how well the instrumentation helps.
+        This shows how well the instrumentation helps.
       - AFL's afl-cmin tool was very helpful in reducing the 146 seed
-	topology files to 3 unique files.
+        topology files to 3 unique files.
+
   - The rest of the month was spent on analyzing the crashes generated
     by the fuzzer.
 
@@ -82,8 +83,8 @@
     errors are.
 
   - Note: Task log for fuzzing SOF QEMU can be found in this [[https://docs.google.com/document/d/1wqiXP9XLR8toP-a8LfiEGrGiendni7FQf8nu2_6FKeA/edit][Google Doc]].
-    
-  
+
+
 * Third Month
 
   - Half of the third month was spent on solving bugs found in the fuzzer
@@ -102,11 +103,11 @@
 * Links:
 
   - Issues reported due to crashes found when fuzzer ran:
-    
+
     - Open Issues: https://github.com/thesofproject/sof/issues/created_by/ymdatta
     - Closed Issues: [[https://github.com/thesofproject/sof/issues?q=is%253Aissue+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof/issues/closed_by/ymdatta]]
 
-  - Pull Requests created as part of the process: 
+  - Pull Requests created as part of the process:
 
     - Open PR's: https://github.com/thesofproject/sof/pulls/ymdatta
     - Merged PR's: [[https://github.com/thesofproject/sof/pulls?q=is%253Apr+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof/pulls?q=is_Apr+author_ymdatta+is_closed]]
@@ -122,6 +123,7 @@
 
     The description of the PR tells the work and the design decisions made
     as part of solving the problem.
+
 * Work completed:
 
   - We were able to show the effectiveness of AFL fuzzer for fuzzing
