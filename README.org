@@ -1,0 +1,4 @@
+* gsoc-report
+
+  Final report made as part of GSoC 2020. The report can be found at
+  report.org in this repository.
