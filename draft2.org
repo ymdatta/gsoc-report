@@ -7,7 +7,7 @@
   audio firmware infrastructure and development tools for developers who are
   interested in audio or signal processing on modern DSPs.
 
-  As part of GSoC 2020, my project involved improving security and reliablity
+  As part of GSoC 2020, my project involved improving security and reliability
   of Sound Open Firmware (SOF) by [[https://en.wikipedia.org/wiki/Fuzzing][Fuzzing]] technique. In particular, it involved
   fuzzing SOF IPC input to make SOF more resilient. This following sections
   describe the experiences over the summer working on the project.
@@ -26,7 +26,7 @@
 
 ** Challenges
 
-   - Establishing the connection between choosen open source fuzzer (AFL) to
+   - Establishing the connection between chosen open source fuzzer (AFL) to
      QEMU to send/receive IPC messages.
    - Understanding the workings of the AFL to use it efficiently for fuzzing
      IPC messages.
@@ -56,7 +56,7 @@
 
 ** Objective
 
-   Fuzzing userspace application called testbench which was developed to verify
+   Fuzzing user space application called testbench which was developed to verify
    FW functionality for the audio components.
 
 ** Deliverables
@@ -130,7 +130,7 @@
   - Fuzzing was done only for 'volume' component, but there are other
     components for whom fuzzing has to be done like 'eq-fir',
     'eq-iir' etc.
-  - Fuzzing is an interative process. As new code is added, it brings
+  - Fuzzing is an iterative process. As new code is added, it brings
     out new bugs to the program. So, the fuzzing has to be done
     periodically to find out the new bugs in the programs.
 
