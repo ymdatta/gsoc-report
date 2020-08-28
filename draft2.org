@@ -45,7 +45,7 @@
      it has sent to QEMU DSP, because of lack of instrumentation at the
      QEMU SOF firmware side. This leads to AFL not being able
      to generate IPC input messages intelligently.
-   - More Technical information can be found at the description of [[https://github.com/thesofproject/sof/pull/3100][PR#3100]]. 
+   - More technical information can be found at the description of [[https://github.com/thesofproject/sof/pull/3100][PR#3100]]. 
 
 ** Results
 
