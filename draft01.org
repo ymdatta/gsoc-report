@@ -1,0 +1,152 @@
+#+TITLE: GSoC Work Product Submission
+#+AUTHOR: Mohana Datta Yelugoti
+#+OPTIONS: toc:nil ^:nil
+* Introduction
+
+  Sound Open Firmware is an open source audio DSP firmware and SDK that provides
+  audio firmware infrastructure and development tools for developers who are
+  interested in audio or signal processing on modern DSPs.
+
+  As part of GSoC 2020, my project involved improving security and reliablity
+  of Sound Open Firmware (SOF) by [[https://en.wikipedia.org/wiki/Fuzzing][Fuzzing]] technique. In particular, it involved
+  fuzzing SOF IPC input to make SOF more resilient. This following sections
+  describe the experiences over the summer working on the project.
+
+* Community bonding period
+
+  - During this time, with the help of my mentors, i was able to setup the
+    development environment. There was already an in-house written fuzzer
+    by the developers of SOF, i was able to get that working on my
+    environment. After discussing on various open source fuzzers, my
+    mentors and i decided to go with [[https://en.wikipedia.org/wiki/American_fuzzy_lop_(fuzzer)][AFL]]. One can find the repository
+    and details on how to use AFL on this github [[https://github.com/google/AFL][repository.]]
+
+* First Month
+
+  - The month started by me getting familiar with SOF QEMU and in house
+    sof-fuzzing tool.
+  - Then the work went on to use the inputs generate from AFL fuzzer and
+    send them to SOF QEMU.
+
+    - The first subtask in this case is establishing the connection
+      between AFL and SOF QEMU.
+    - AFL works by taking a program executable (along with its arguments) as
+      input and iteratively sends inputs to the executable.
+    - The design decision we came up with was to write a bridge program which
+      takes inputs generated from AFL and starts the SOF QEMU, does the
+      intialization and sends these inputs to the QEMU.
+    - The repository for this work can be found here: [[https://github.com/ymdatta/sof/commits/fuzz_qemu][ymdatta:fuzz_qemu]]
+  - The problem we faced was each time for every new input, we need to
+    restart the SOF QEMU.
+
+    For few inputs this doesn't matter, but AFL generates inputs at a
+    very fast rate, so if we are restarting the QEMU for each input, this
+    time accumulates and becomes a bottleneck.
+
+* Second Month
+
+  - But, we went forward with the design and started running AFL fuzzer
+    with the help of bridge program to interconnect AFL and SOF QEMU.
+  - Even after a few days of running AFL there were no crashes to be
+    found while sending IPC inputs to SOF QEMU.
+  - This was explained by lack of instrumentation.
+
+    - AFL works well on instrumented programs. In a simple way, instrumentation
+      helps the AFL program in modifying inputs in order to reach various
+      parts in the code.
+    - SOF QEMU was not instrumented, so there was no feedback for AFL
+      to modify inputs so as to reach different paths in the code.
+  - Along with the mentors, as an alternative to fuzzing the SOF QEMU,
+    we have decided to fuzz an userspace application called testbench
+    which was part of the tools provided by the SOF.
+
+    - Since, we had source code for the tool, before generating the
+      testbench executable, we were able to instrument by compiling
+      with the compiler provided by the AFL. (a wrapper around gcc).
+      This lead to exciting results.
+    - Some observations:
+
+      - AFL became very fast.
+      - AFL was able to find 100 crahes/testcases all within
+        running the fuzzer for less than 20 minutes.
+
+        This shows how well the instrumentation helps.
+      - AFL's afl-cmin tool was very helpful in reducing the 146 seed
+        topology files to 3 unique files.
+
+  - The rest of the month was spent on analyzing the crashes generated
+    by the fuzzer.
+
+    Typical workflow was to take the input which causes the crash, run
+    the input with testbench application under gdb and find where the
+    crash is happening. In some cases, using valgrind to see where the
+    errors are.
+
+  - Note: Task log for fuzzing SOF QEMU can be found in this [[https://docs.google.com/document/d/1wqiXP9XLR8toP-a8LfiEGrGiendni7FQf8nu2_6FKeA/edit][Google Doc]].
+
+
+* Third Month
+
+  - Half of the third month was spent on solving bugs found in the fuzzer
+    run from previous month.
+  - After completing solving those bugs, i then ran the fuzzer for the
+    second time.
+
+    - Previously fuzzer took < 20 minutes to find 100 crashes, but now
+      it took nearly 6 hours to find 100 crashes. We could infer this
+      by saying that fuzzer is working at more depth and it is evident
+      from the crashes found that the fuzzer was touching the core
+      part of the SOF code.
+  - SOF Docs were also updated as part of the process to give instructions
+    on how to run the fuzzer for testbench as well as with QEMU.
+
+* Links:
+
+  - Issues reported due to crashes found when fuzzer ran:
+
+    - Open Issues: https://github.com/thesofproject/sof/issues/created_by/ymdatta
+    - Closed Issues: [[https://github.com/thesofproject/sof/issues?q=is%253Aissue+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof/issues/closed_by/ymdatta]]
+
+  - Pull Requests created as part of the process:
+
+    - Open PR's: https://github.com/thesofproject/sof/pulls/ymdatta
+    - Merged PR's: [[https://github.com/thesofproject/sof/pulls?q=is%253Apr+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof/pulls?q=is_Apr+author_ymdatta+is_closed]]
+
+  - Pull requests made to SOF Documentation as part of the process:
+
+    - Merged PR's: [[https://github.com/thesofproject/sof-docs/pulls?q=is%253Apr+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof-docs/ymdatta/pulls_merged]]
+
+  - Pull request for the work done in the first half of the GSoC period, i.e,
+    fuzzing SOF QEMU using AFL:
+
+    Link: https://github.com/thesofproject/sof/pull/3100
+
+    The description of the PR tells the work and the design decisions made
+    as part of solving the problem.
+
+* Work completed:
+
+  - We were able to show the effectiveness of AFL fuzzer for fuzzing
+    programs when they are instrumented properly.
+  - 'Volume' component was fuzzed in both runs.
+
+* Work to be completed:
+
+  - We fuzzed only for 'volume' component, but there are other
+    components for whom fuzzing has to be done like 'eq-fir',
+    'eq-iir' etc.
+  - Fuzzing is an interative process. As new code is added, it brings
+    out new bugs to the program. So, the fuzzing has to be done
+    periodically to find out the new bugs in the programs.
+
+* Future work:
+
+  - Making the process automatic. Currently, when AFL reports
+    crashes, those crashes are to be checked manually and reports
+    are to be made from them. But, having a mechanism which
+    is able to identify unique set of bugs and file them in the
+    repository would help a lot.
+
+  - A mechanism which as part of the fuzzer, is able to fuzz
+    only a specific part of the program, rather than the entire
+    program would be helpful. Work has to be done in this area.
