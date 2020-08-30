@@ -109,16 +109,16 @@
    - Issues reported in the Phase-2 of the GSoC period:
 
     - Open Issues: https://github.com/thesofproject/sof/issues/created_by/ymdatta
-    - Closed Issues: [[https://github.com/thesofproject/sof/issues?q=is%253Aissue+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof/issues/closed_by/ymdatta]]
+    - Closed Issues: [[https://github.com/thesofproject/sof/issues?q=is:issue+author:ymdatta+is:closed][https://github.com/thesofproject/sof/issues?q=is:issue+author:ymdatta+is:closed]]
 
   - Pull Requests created as part of the Phase-2:
 
     - Open PR's: https://github.com/thesofproject/sof/pulls/ymdatta
-    - Merged PR's: [[https://github.com/thesofproject/sof/pulls?q=is%253Apr+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof/pulls?q=is_Apr+author_ymdatta+is_closed]]
+    - Merged PR's: [[https://github.com/thesofproject/sof/pulls?q=is:pr+author:ymdatta+is:closed][https://github.com/thesofproject/sof/pulls?q=is:pr+author:ymdatta+is:closed]]
 
   - Pull requests made to SOF Documentation as part of the Phase-2:
 
-    - Merged PR's: [[https://github.com/thesofproject/sof-docs/pulls?q=is%253Apr+author%253Aymdatta+is%253Aclosed][https://github.com/thesofproject/sof-docs/ymdatta/pulls_merged]]     
+    - Merged PR's: [[https://github.com/thesofproject/sof-docs/pulls?q=is:pr+author:ymdatta+is:closed][https://github.com/thesofproject/sof-docs/pulls?q=is:pr+author:ymdatta+is:closed]]
 
    
 * Work completed:
